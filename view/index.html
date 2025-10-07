@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en">
+
+<head>
+    <meta charset="UTF-8"> <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/uikit.css">
+</head>
+
+<body class="uk-background-dark uk-flex uk-flex-row uk-child-width-1-2 uk-height-expand">
+    
+    <div class="uk-background-danger uk-vh-1-1" joy-A></div>
+
+    <div class="uk-background-success uk-vh-1-1" joy-B></div>
+
+    <script> (()=>{
+
+        var cli = new WebSocket( window.location.origin.replace("http","ws") );
+        var obj = new Object({ x:"0", y:"0", z:"0" });
+
+        cli.onopen = ()=>{ setInterval(()=>{
+        if( cli.readyState === WebSocket.CLOSED ){ return; }
+            cli.send( JSON.stringify( obj ) );
+        //  console.log( "->", obj );
+        }, 100 )};
+
+        document.querySelector("[joy-A]").addEventListener("touchmove",(ev)=>{
+        if( cli.readyState === WebSocket.CLOSED ){ return; }
+            
+            ev.preventDefault(); let tmp = new Object({
+                x: ev.changedTouches[0].target.offsetLeft  ,
+                y: ev.changedTouches[0].target.offsetTop   ,
+                w: ev.changedTouches[0].target.offsetWidth ,
+                h: ev.changedTouches[0].target.offsetHeight,
+                t: new Object({
+                    x: ev.changedTouches[0].clientX,
+                    y: ev.changedTouches[0].clientY,
+                })
+            });
+
+            obj.x = ( ( tmp.t.x - tmp.x ) / tmp.w * 2 - 1 ).toFixed(2);
+            obj.y = ( ( tmp.t.y - tmp.y ) / tmp.h * 2 - 1 ).toFixed(2);
+            
+        });
+
+        document.querySelector("[joy-B]").addEventListener("touchmove",(ev)=>{
+        if( cli.readyState === WebSocket.CLOSED ){ return; }
+            
+            ev.preventDefault(); let tmp = new Object({
+                x: ev.changedTouches[0].target.offsetLeft  ,
+                y: ev.changedTouches[0].target.offsetTop   ,
+                w: ev.changedTouches[0].target.offsetWidth ,
+                h: ev.changedTouches[0].target.offsetHeight,
+                t: new Object({
+                    x: ev.changedTouches[0].clientX,
+                    y: ev.changedTouches[0].clientY,
+                })
+            });
+
+            obj.z = Math.atan2( 
+                ( ( tmp.t.y - tmp.y ) / tmp.h * 2 - 1 ).toFixed(2),
+                ( ( tmp.t.x - tmp.x ) / tmp.w * 2 - 1 ).toFixed(2)
+            ).toFixed(2);
+
+        });
+
+        document.querySelector("[joy-A]").addEventListener("touchend",(ev)=>{
+        if( cli.readyState === WebSocket.CLOSED ){ return; } 
+            obj.x = "0"; obj.y = "0";
+        });
+
+    })();
+    </script>
+
+</body>
+
+</html>
