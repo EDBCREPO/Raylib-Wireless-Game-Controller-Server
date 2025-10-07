@@ -9,6 +9,9 @@ Features
 - 🎯: 3D Graphics: Raylib-powered 3D rendering with texture support
 - 📱: Mobile Optimized: Touch-optimized interface with smooth controls
 
+![ezgif-7b8ce043cbcac4](https://github.com/user-attachments/assets/a228b2ea-4d29-4949-8466-1e2a12ceddac)
+
+
 ## Architecture
 ```bash
 ┌─────────────────┐    WebSocket    ┌──────────────────┐
