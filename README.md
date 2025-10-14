@@ -10,7 +10,7 @@ Features
 - 📱: Mobile Optimized: Touch-optimized interface with smooth controls
 
 ![ezgif-7b8ce043cbcac4](https://github.com/user-attachments/assets/a228b2ea-4d29-4949-8466-1e2a12ceddac)
-
+![ezgif-3c48225b00ad1f](https://github.com/user-attachments/assets/33506056-8d06-4676-bfb5-e5134f36bf79)
 
 ## Architecture
 ```bash
