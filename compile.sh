@@ -1,11 +1,13 @@
-export LD_LIBRARY_PATH=./lib:$LD_LIBRARY_PATH
+mkdir -p build
 
-if [ ! -d "build" ]; then
-    mkdir "build"
+if [ ! -d "./build/_deps" ]; then
+   ( cd build ; cmake .. )
 fi
 
-#LINUX
-g++ main.cpp -o ./build/main -L./lib -I./include -lz -lssl -lcrypto -lraylib; ./build/main
+( cd build ; make )
 
-#WINDOWS
-#g++ main.cpp -o ./build/main.exe -L./lib -I./include -lz -lssl -lcrypto -lraylib -lws2_32 -lwinmm -lgdi32 ; ./build/main.exe
+if [ ! $? -eq 0 ]; then
+    echo "exit error"; exit;
+fi
+
+./build/main
